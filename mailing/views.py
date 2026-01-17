@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
+
 from mailing.forms import MailingForm, MessageForm, RecipientForm
 from mailing.mixins import OwnerRequiredMixin
 from mailing.services import get_mailing_from_cache, get_message_from_cache, get_recipient_from_cache, send_mailing

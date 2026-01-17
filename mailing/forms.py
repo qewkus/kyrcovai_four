@@ -1,4 +1,5 @@
 from django import forms
+
 from mailing.models import Mailing, Message, Recipient
 
 

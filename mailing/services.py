@@ -1,9 +1,10 @@
-from config.settings import CACHE_ENABLED, EMAIL_HOST_USER
 from django.core.cache import cache
 from django.core.mail import BadHeaderError, send_mail
 from django.db import transaction
 from django.db.models import Q
 from django.utils import timezone
+
+from config.settings import CACHE_ENABLED, EMAIL_HOST_USER
 
 from .models import Mailing, MailingAttempt, Message, Recipient
 
