@@ -1,0 +1,54 @@
+{% extends "mailing/base.html" %}
+
+{% block title %}Статистика{% endblock %}
+
+{% block content %}
+
+<div class="card mt-4">
+    <div class="card-header">
+        <h2 class="card-title">Статистика по рассылкам</h2>
+    </div>
+    <div class="table-responsive small">
+        <table class="table table-striped table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Рассылка</th>
+                    <th scope="col">Статус</th>
+                    <th scope="col">Ответ сервера</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if mailing_attempt_list %}
+                    {% for mailingattempt in attempt_list %}
+                        {% if user == message.owner or user.is_staff or user.is_authenticated %}
+                            <tr>
+                                <td>{{ mailingattempt.mailing.message.subject }}</td>
+                                <td>
+                                    {% if mailingattempt.status == "Успешно" %}
+                                        <span class="text-success">Успешно</span>
+                                    {% else %}
+                                        <span class="text-danger">Не успешно</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ mailingattempt.mail_server_response }}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="4">Нет попыток рассылки.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+        {% if user == message.owner or user.is_staff or user.is_authenticated %}
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Всего попыток: {{ attempts_count }}</li>
+                <li class="list-group-item">Успешных: {{ attempts_success_count }}</li>
+                <li class="list-group-item">Не успешных: {{ attempts_error_count }}</li>
+            </ul>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
